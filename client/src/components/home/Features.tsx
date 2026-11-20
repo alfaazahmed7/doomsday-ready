@@ -78,8 +78,8 @@ export function Features() {
     <section className="py-16 lg:py-24" aria-label="Features">
       <div className="mx-auto w-full max-w-[1400px] px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white">Features</h2>
-          <p className="mt-4 text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
+          <h2 className="text-3xl lg:text-4xl font-bold text-slate-900">Features</h2>
+          <p className="mt-4 text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
             Everything you need to plan, track, and enjoy your MCU rewatch with your crew.
           </p>
         </div>
@@ -87,13 +87,13 @@ export function Features() {
           {features.map((feature) => (
             <article
               key={feature.title}
-              className="flex flex-col rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 hover:border-blue-500 dark:hover:border-blue-400 transition-colors"
+              className="flex flex-col rounded-2xl border border-slate-200 bg-white p-8 hover:border-blue-500 shadow-sm transition-colors"
             >
-              <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">
+              <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-blue-100 text-blue-600">
                 {feature.icon}
               </div>
-              <h3 className="mt-6 text-xl font-bold text-slate-900 dark:text-white">{feature.title}</h3>
-              <p className="mt-4 text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+              <h3 className="mt-6 text-xl font-bold text-slate-900">{feature.title}</h3>
+              <p className="mt-4 text-sm text-slate-600 leading-relaxed">
                 {feature.description}
               </p>
               <Link
