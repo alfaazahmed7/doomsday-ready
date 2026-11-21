@@ -11,4 +11,10 @@ app.get('/', (req, res) => {
     res.send('Doomsday Ready server in running properly');
 });
 
+// routes imports
+import movieRoutes from './routes/movie.routes';
+
+// routes
+app.use('/api', movieRoutes);
+
 export default app;
