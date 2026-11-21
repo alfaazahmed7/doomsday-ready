@@ -4,7 +4,7 @@ import { Footer } from './components/shared/Footer';
 import { Home } from './pages/Home';
 import { Movies } from './pages/Movies';
 import { RewatchPlan } from './pages/RewatchPlan';
-import { Booking } from './pages/Booking';
+import Booking from './pages/Booking';
 import { ToastContainer } from 'react-toastify';
 
 function App() {
