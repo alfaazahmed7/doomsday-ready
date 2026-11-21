@@ -4,11 +4,13 @@ import {
   createMovie,
   getAllMovies,
   updateMovie,
-  getRewatchOrder
+  getRewatchOrder,
 } from '../services/movie.services';
 import { MovieList } from '../components/movies/MovieList';
 import { MovieForm } from '../components/movies/MovieForm';
 import { Loading } from '../components/shared/Loading';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export function Movies() {
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -54,12 +56,13 @@ export function Movies() {
     prerequisites: string[];
   }) => {
     try {
-      await createMovie(data);
+      const movie = await createMovie(data);
+      toast.success('Movie created successfully.');
       setFormOpen(false);
       setEditingMovie(null);
       await fetchMovies();
     } catch (err: any) {
-      setError(err.message || 'Failed to create movie.');
+      toast.error(err.message || 'Failed to create movie.');
     }
   };
 
@@ -72,13 +75,14 @@ export function Movies() {
   }) => {
     try {
       const updated = await updateMovie(id, data);
+      toast.success('Movie updated successfully.');
       setFormOpen(false);
       setEditingMovie(null);
       setMovies((prev) =>
         prev.map((m) => (m._id === id ? updated : m))
       );
     } catch (err: any) {
-      setError(err.message || 'Failed to update movie.');
+      toast.error(err.message || 'Failed to update movie.');
     }
   };
 
@@ -92,13 +96,14 @@ export function Movies() {
 
     try {
       await updateMovie(id, { watched });
+      toast.success('Watch status updated.');
     } catch (err: any) {
       setMovies((prev) =>
         prev.map((m) =>
           m._id === id ? { ...m, watched: originalWatched } : m
         )
       );
-      setError(err.message || 'Failed to update watched status.');
+      toast.error(err.message || 'Failed to update watched status.');
     }
   };
 
@@ -108,8 +113,9 @@ export function Movies() {
     try {
       const order = await getRewatchOrder(id);
       setRewatchOrder(order);
+      toast.success('Rewatch plan generated successfully.');
     } catch (err: any) {
-      setError(err.message || 'Failed to generate rewatch order.');
+      toast.error(err.message || 'Failed to generate rewatch order.');
       setRewatchOpen(false);
     }
   };

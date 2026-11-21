@@ -1,4 +1,5 @@
 import type { Movie } from '../../types/movie';
+import { RiArrowDropDownLine, RiCheckLine } from 'react-icons/ri';
 
 interface MovieCardProps {
   movie: Movie;
@@ -43,10 +44,20 @@ export function MovieCard({
             <button
               type="button"
               onClick={handleToggleWatched}
-              className="p-2 text-slate-400 hover:text-blue-600 transition-colors"
+              className="flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium transition-colors hover:bg-slate-50"
               aria-label={movie.watched ? 'Mark as unwatched' : 'Mark as watched'}
             >
-              {movie.watched ? '&#10003;' : '&#10003;'}
+              {!movie.watched ? (
+                <>
+                  <RiArrowDropDownLine className="text-slate-500" />
+                  Mark as Watched
+                </>
+              ) : (
+                <>
+                  <RiCheckLine className="text-blue-500" />
+                  Watched
+                </>
+              )}
             </button>
           </div>
         </div>

@@ -5,6 +5,7 @@ import { Home } from './pages/Home';
 import { Movies } from './pages/Movies';
 import { RewatchPlan } from './pages/RewatchPlan';
 import { Booking } from './pages/Booking';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         </Routes>
       </main>
       <Footer />
+      <ToastContainer />
     </BrowserRouter>
   );
 }
