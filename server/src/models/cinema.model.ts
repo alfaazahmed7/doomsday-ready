@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
-interface ICinema {
+export interface ICinema {
+    _id: string;
     name: string;
     bundleSizes: number[];
 }
@@ -35,9 +36,8 @@ const validateBundleSize = (sizes: number[]): void => {
     }
 };
 
-cinemaSchema.pre('validate', function (next) {
+cinemaSchema.pre('validate', function () {
     validateBundleSize(this.bundleSizes);
-    next();
 });
 
 const Cinema = mongoose.model<ICinema>('Cinema', cinemaSchema);

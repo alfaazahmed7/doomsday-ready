@@ -62,9 +62,9 @@ export const getBookingController = async (req: Request, res: Response): Promise
             throw new AppError('Group size is required.', 400, 'MISSING_GROUP_SIZE');
         }
 
-        const groupSizeNum = parseInt(groupSize, 10);
-        if (isNaN(groupSizeNum)) {
-            throw new AppError('Group size must be a valid integer.', 400, 'INVALID_GROUP_SIZE');
+        const groupSizeNum = Number(groupSize);
+        if (!Number.isInteger(groupSizeNum) || groupSizeNum < 1 || groupSizeNum > 10000) {
+            throw new AppError('Group size must be a valid integer between 1 and 10000.', 400, 'INVALID_GROUP_SIZE');
         }
 
         const booking = await calculateBooking(id, groupSizeNum);

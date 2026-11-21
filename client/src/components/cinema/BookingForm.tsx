@@ -1,34 +1,25 @@
 import type { Cinema, BookingResult } from '../../types/cinema';
 import { useState, useEffect, useCallback } from 'react';
-import { getAllCinemas, calculateBooking } from '../../services/cinema.services';
+import { calculateBooking } from '../../services/cinema.services';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 
-export function BookingForm() {
-  const [cinemas, setCinemas] = useState<Cinema[]>([]);
-  const [selectedCinema, setSelectedCinema] = useState<Cinema | null>(null);
+export function BookingForm({ cinemas, selectedCinema, setSelectedCinema }: { cinemas: Cinema[], selectedCinema: Cinema | null, setSelectedCinema: React.Dispatch<React.SetStateAction<Cinema | null>> }) {
   const [groupSize, setGroupSize] = useState(0);
   const [result, setResult] = useState<BookingResult | null>(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const fetchCinemas = useCallback(async () => {
-    try {
-      const data = await getAllCinemas();
-      setCinemas(data);
-    } catch (err: any) {
-      toast.error(err.message || 'Failed to load cinemas.');
-    }
-  }, []);
-
-useEffect(() => {
-    fetchCinemas();
-  }, [fetchCinemas]);
-
+  // Clear result when selected cinema changes
   useEffect(() => {
     setResult(null);
   }, [selectedCinema]);
+
+  // Clear result when group size changes
+  useEffect(() => {
+    setResult(null);
+  }, [groupSize]);
 
   const handleGroupSizeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -38,6 +29,7 @@ useEffect(() => {
     } else {
       setGroupSize(num);
     }
+    setResult(null);
   };
 
   const handleCalculate = useCallback(async () => {
@@ -125,7 +117,7 @@ useEffect(() => {
       </div>
 
       {/* Result Section */}
-      {selectedCinema && groupSize >= 1 && groupSize <= 10000 && !loading && (
+      {result && (
         <div className="mt-8 p-4 rounded-2xl border {
           result?.possible ? 'border-green-500' : 'border-red-500'
         } bg-${
@@ -139,7 +131,7 @@ useEffect(() => {
               <div className="grid grid-cols-2 gap-4 mb-4">
                 <div>
                   <p className="text-sm text-slate-500">Cinema</p>
-                  <p className="font-medium">{selectedCinema.name}</p>
+                  <p className="font-medium">{selectedCinema?.name}</p>
                 </div>
                 <div>
                   <p className="text-sm text-slate-500">Group Size</p>
@@ -179,7 +171,7 @@ useEffect(() => {
                 Unfortunately, this cinema cannot accommodate exactly {groupSize} people with its available bundle sizes.
               </p>
               <p className="text-center text-slate-500">
-                The cinema's bundle sizes are: {selectedCinema.bundleSizes.map((s) => s + ' seat').join(', ')}
+                The cinema's bundle sizes are: {selectedCinema?.bundleSizes.map((s) => s + ' seat').join(', ')}
               </p>
             </div>
           )}

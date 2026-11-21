@@ -10,8 +10,8 @@ export function CreateCinemaForm({ onCinemaCreated }: { onCinemaCreated?: () => 
   const [sizeInput, setSizeInput] = useState('');
 
   const addSize = () => {
-    const size = parseInt(sizeInput, 10);
-    if (isNaN(size) || size < 1 || size > 500) {
+    const size = Number(sizeInput);
+    if (Number.isNaN(size) || !Number.isInteger(size) || size < 1 || size > 500) {
       toast.error('Bundle size must be an integer between 1 and 500.');
       return;
     }
