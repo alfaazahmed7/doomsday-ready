@@ -256,6 +256,11 @@ export const getRewatchOrder = async (movieId: string): Promise<PopulatedMovie[]
         result.push(current as unknown as PopulatedMovie);
     };
 
-    await dfs(movieId);
+    // Start DFS from the prerequisites of the target movie
+    // to exclude the target movie itself from the result
+    const prerequisites = movie.prerequisites as unknown as PopulatedMovie[];
+    for (const prereq of prerequisites) {
+        await dfs(prereq._id.toString());
+    }
     return result;
 };
