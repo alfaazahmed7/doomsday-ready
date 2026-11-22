@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import Movie from '../models/movie.model';
+import Movie from '../models/movie.model.js';
 
 export class AppError extends Error {
     statusCode: number;
@@ -202,7 +202,9 @@ export const updateMovie = async (
         if (await hasCircularDependency(movie._id.toString(), prerequisites)) {
             throw new AppError('Circular movie dependency detected.', 409, 'CIRCULAR_DEPENDENCY');
         }
-        movie.prerequisites = prerequisites;
+        movie.prerequisites = prerequisites.map(
+            (id) => new mongoose.Types.ObjectId(id)
+        );
     }
 
     try {

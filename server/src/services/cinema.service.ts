@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import Cinema, { ICinema } from '../models/cinema.model';
+import Cinema, { ICinema } from '../models/cinema.model.js';
 
 export class AppError extends Error {
     statusCode: number;

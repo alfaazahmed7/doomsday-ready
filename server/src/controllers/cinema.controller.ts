@@ -4,7 +4,7 @@ import {
     getAllCinemas,
     calculateBooking,
     AppError
-} from '../services/cinema.service';
+} from '../services/cinema.service.js';
 
 const handleError = (res: Response, error: unknown): Response => {
     if (error instanceof AppError) {
@@ -56,6 +56,12 @@ export const getAllCinemasController = async (req: Request, res: Response): Prom
 export const getBookingController = async (req: Request, res: Response): Promise<Response> => {
     try {
         const { id } = req.params;
+        if (typeof id !== 'string') {
+            return res.status(400).json({
+                success: false,
+                message: 'Invalid ID'
+            });
+        }
         const { groupSize } = req.query;
 
         if (groupSize === undefined || typeof groupSize !== 'string') {

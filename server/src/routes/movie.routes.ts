@@ -4,7 +4,7 @@ import {
     getAllMoviesController,
     updateMovieController,
     getRewatchOrderController
-} from '../controllers/movie.controller';
+} from '../controllers/movie.controller.js';
 
 const router = express.Router();
 

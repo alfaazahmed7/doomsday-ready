@@ -12,8 +12,8 @@ app.get('/', (req, res) => {
 });
 
 // routes imports
-import movieRoutes from './routes/movie.routes';
-import cinemaRoutes from './routes/cinema.routes';
+import movieRoutes from './routes/movie.routes.js';
+import cinemaRoutes from './routes/cinema.routes.js';
 
 // routes
 app.use('/api', movieRoutes);

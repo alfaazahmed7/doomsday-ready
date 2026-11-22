@@ -3,7 +3,7 @@ import {
     createCinemaController,
     getAllCinemasController,
     getBookingController
-} from '../controllers/cinema.controller';
+} from '../controllers/cinema.controller.js';
 
 const router = express.Router();
 

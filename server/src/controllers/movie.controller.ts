@@ -5,7 +5,7 @@ import {
     updateMovie,
     getRewatchOrder,
     AppError
-} from '../services/movie.service';
+} from '../services/movie.service.js';
 
 const handleError = (res: Response, error: unknown): Response => {
     if (error instanceof AppError) {
@@ -56,7 +56,16 @@ export const getAllMoviesController = async (req: Request, res: Response): Promi
 
 export const updateMovieController = async (req: Request, res: Response): Promise<Response> => {
     try {
-        const movie = await updateMovie(req.params.id, req.body);
+        const id = req.params.id;
+
+        if (typeof id !== 'string') {
+            return res.status(400).json({
+                success: false,
+                message: 'Invalid ID'
+            });
+        }
+
+        const movie = await updateMovie(id, req.body);
         return res.status(200).json({
             success: true,
             message: 'Movie updated successfully.',
@@ -69,7 +78,16 @@ export const updateMovieController = async (req: Request, res: Response): Promis
 
 export const getRewatchOrderController = async (req: Request, res: Response): Promise<Response> => {
     try {
-        const order = await getRewatchOrder(req.params.id);
+        const id = req.params.id;
+
+        if (typeof id !== 'string') {
+            return res.status(400).json({
+                success: false,
+                message: 'Invalid ID'
+            });
+        }
+
+        const order = await getRewatchOrder(id);
         return res.status(200).json({
             success: true,
             data: order
